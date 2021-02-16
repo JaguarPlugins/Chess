@@ -14,11 +14,11 @@ public class Handler {
 //	GETTERS AND SETTERS
 	
 	public double getWidth() {
-		return stage.getWidth() - 16;
+		return stage.getWidth() - 6;
 	}
 
 	public double getHeight() {
-		return stage.getHeight() - 39;
+		return stage.getHeight() - 29;
 	}
 	
 }

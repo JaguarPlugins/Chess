@@ -35,12 +35,7 @@ public class Main extends Application {
 		primaryStage.getIcons().add(new Image("com/jaguarplugins/chess/res/logo.png"));
 		primaryStage.setWidth(800);
 		primaryStage.setHeight(800);
-		primaryStage.minHeightProperty().bind(primaryStage.widthProperty());
-		primaryStage.maxHeightProperty().bind(primaryStage.widthProperty());
-		primaryStage.maximizedProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue)
-                primaryStage.setMaximized(false);
-        });
+		primaryStage.setResizable(false);
 		primaryStage.setOnCloseRequest(e -> {
 			game.interrupt();
 		});
