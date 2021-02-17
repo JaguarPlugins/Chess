@@ -2,6 +2,7 @@ package com.jaguarplugins.chess;
 
 import com.jaguarplugins.chess.states.MainState;
 import com.jaguarplugins.chess.states.State;
+import com.jaguarplugins.chess.style.Assets;
 import com.jaguarplugins.chess.util.Handler;
 
 import javafx.application.Application;
@@ -9,7 +10,6 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -22,20 +22,27 @@ public class Main extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		
-		Canvas canvas = new Canvas(5000,5000);
+				
+		Canvas canvas = new Canvas(800,800);
 		GraphicsContext g = canvas.getGraphicsContext2D();
 		
-		Handler handler = new Handler(primaryStage);
-		State.setCurrentState(new MainState(handler));
-		Game game = new Game(handler, g);
-		
-		primaryStage.setScene(new Scene(new Group(canvas)));
+		Scene scene = new Scene(new Group(canvas));
+
+		primaryStage.setScene(scene);
 		primaryStage.setTitle("Chess Offline");
-		primaryStage.getIcons().add(new Image("com/jaguarplugins/chess/res/logo.png"));
+		primaryStage.getIcons().add(Assets.PAWN);
 		primaryStage.setWidth(800);
 		primaryStage.setHeight(800);
 		primaryStage.setResizable(false);
+		
+		Handler handler = new Handler(primaryStage);
+		State mainState = new MainState(handler);
+		State.setCurrentState(mainState);
+		Game game = new Game(handler, g);
+
+		scene.setOnMousePressed(mainState);
+		scene.setOnMouseDragged(mainState);
+		scene.setOnMouseReleased(mainState);
 		primaryStage.setOnCloseRequest(e -> {
 			game.interrupt();
 		});

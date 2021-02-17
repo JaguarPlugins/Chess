@@ -21,4 +21,12 @@ public class Handler {
 		return stage.getHeight() - 29;
 	}
 	
+	public double getSquareWidth() {
+		return getWidth()/8;
+	}
+	
+	public double getSquareHeight() {
+		return getHeight()/8;
+	}
+	
 }

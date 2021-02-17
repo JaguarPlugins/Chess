@@ -3,9 +3,11 @@ package com.jaguarplugins.chess.states;
 
 import com.jaguarplugins.chess.util.Handler;
 
+import javafx.event.EventHandler;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 
-public abstract class State {
+public abstract class State implements EventHandler<MouseEvent>{
 
 	private static State currentState;
 	
@@ -15,8 +17,9 @@ public abstract class State {
 		this.handler = handler;
 	}
 
-	public abstract void tick();
-	
+//	ABSTRACT METHODS
+	public abstract void handle(MouseEvent e);
+	public abstract void tick();	
 	public abstract void render(GraphicsContext g);
 
 //	GETTERS AND SETTERS
