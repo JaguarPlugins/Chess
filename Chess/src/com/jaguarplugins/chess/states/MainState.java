@@ -8,7 +8,6 @@ import com.jaguarplugins.chess.util.Handler;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Rectangle;
 
 public class MainState extends State {
 
@@ -18,7 +17,9 @@ public class MainState extends State {
 	
 	public MainState(Handler handler) {
 		super(handler);
-		board[0][7] = new Pawn(handler, Assets.PAWN, 0, 7);
+		board[0][7] = new Pawn(handler, true, Assets.PAWN, 0, 7);
+		board[0][6] = new Pawn(handler, false, Assets.PAWN, 0, 6);
+		board[1][6] = new Pawn(handler, false, Assets.PAWN, 1, 6);
 	}
 
 	@Override
@@ -65,18 +66,17 @@ public class MainState extends State {
 			} else if (e.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
 				
 				if (heldPiece != null) {
-					heldPiece.snap();
+					heldPiece.snap(board);
 					heldPiece = null;
 				}
 				
 			} else if (e.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
 
 				for (Piece[] column : board) { for (Piece p : column) { if (p != null) {
-					if (new Rectangle(e.getSceneX(), e.getSceneY(), 1, 1).intersects(p.getR().getX(), p.getR().getY(), p.getR().getWidth(), p.getR().getHeight())) {
+					if (p.getR().intersects(e.getSceneX(), e.getSceneY(), 1, 1)) {
 						heldPiece = p;
 						baseX = e.getSceneX();
 						baseY = e.getSceneY();
-						System.out.println("Piece Found!");
 					}
 				}}}
 

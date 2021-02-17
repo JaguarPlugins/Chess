@@ -13,9 +13,11 @@ public abstract class Piece {
 	protected double x, y, xOffset, yOffset;
 	protected Rectangle r;
 	protected int moves = 0;
+	protected boolean white; // white at bottom, black at top
 	
-	public Piece(Handler handler, Image image, double x, double y) {
+	public Piece(Handler handler, boolean white, Image image, double x, double y) {
 		this.handler = handler;
+		this.white = white;
 		this.image = image;
 		this.x = x*handler.getSquareWidth();
 		this.y = y*handler.getSquareHeight();
@@ -26,14 +28,21 @@ public abstract class Piece {
 		g.drawImage(image, x + xOffset, y + yOffset, handler.getSquareWidth(), handler.getSquareHeight());
 	}
 	
-	public void snap() {
+	public void snap(Piece[][] board) {
 
 		xOffset = (Math.round(xOffset/(handler.getWidth()/8)))*(handler.getWidth()/8);
 		yOffset = (Math.round(yOffset/(handler.getHeight()/8)))*(handler.getHeight()/8);
 		
+		int xPos = (int) ((x + xOffset)/handler.getSquareWidth());
+		int yPos = (int) ((y + yOffset)/handler.getSquareHeight());
+		
+		System.out.println(xPos + ", " + yPos);
+		
 		if (x + xOffset >= 0 && x + xOffset < handler.getWidth() && y + yOffset >= 0 && y + yOffset < handler.getHeight()) {
-			if (checkPath()) {
+			if (checkPath(board[xPos][yPos] != null)) {
 //				PIECE MOVED
+				board[(int) (x/handler.getSquareWidth())][(int) (y/handler.getSquareHeight())] = null; // Removes old location
+				board[xPos][yPos] = this;
 				moves++;
 				x += xOffset;
 				y += yOffset;
@@ -50,7 +59,7 @@ public abstract class Piece {
 	}
 
 //	ABSTRACT METHODS
-	protected abstract boolean checkPath();
+	protected abstract boolean checkPath(boolean taking);
 
 //	GETTERS AND SETTERS
 	public Rectangle getR() {
