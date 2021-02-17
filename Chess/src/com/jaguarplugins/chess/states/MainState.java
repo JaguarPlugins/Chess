@@ -1,7 +1,12 @@
 package com.jaguarplugins.chess.states;
 
+import com.jaguarplugins.chess.pieces.Bishop;
+import com.jaguarplugins.chess.pieces.King;
+import com.jaguarplugins.chess.pieces.Knight;
 import com.jaguarplugins.chess.pieces.Pawn;
 import com.jaguarplugins.chess.pieces.Piece;
+import com.jaguarplugins.chess.pieces.Queen;
+import com.jaguarplugins.chess.pieces.Rook;
 import com.jaguarplugins.chess.style.Assets;
 import com.jaguarplugins.chess.style.ChessColor;
 import com.jaguarplugins.chess.util.Handler;
@@ -16,10 +21,30 @@ public class MainState extends State {
 	private double baseX, baseY;
 	
 	public MainState(Handler handler) {
+		
 		super(handler);
-		board[0][7] = new Pawn(handler, true, Assets.PAWN, 0, 7);
-		board[0][6] = new Pawn(handler, false, Assets.PAWN, 0, 6);
-		board[1][6] = new Pawn(handler, false, Assets.PAWN, 1, 6);
+		
+		for (int i = 0; i <= 7; i++) {
+			board[i][1] = new Pawn(handler, false, Assets.BLACK_PAWN, i, 1);
+			board[i][6] = new Pawn(handler, true, Assets.WHITE_PAWN, i, 6);
+		}
+		for (int i = 0; i <= 7; i+=7) {
+			board[i][0] = new Rook(handler, false, Assets.BLACK_ROOK, i, 0);
+			board[i][7] = new Rook(handler, true, Assets.WHITE_ROOK, i, 7);
+		}
+		for (int i = 2; i <= 5; i+=3) {
+			board[i][0] = new Bishop(handler, false, Assets.BLACK_BISHOP, i, 0);
+			board[i][7] = new Bishop(handler, true, Assets.WHITE_BISHOP, i, 7);
+		}
+		for (int i = 1; i <= 6; i+=5) {
+			board[i][0] = new Knight(handler, false, Assets.BLACK_KNIGHT, i, 0);
+			board[i][7] = new Knight(handler, true, Assets.WHITE_KNIGHT, i, 7);
+		}
+		board[3][0] = new King(handler, false, Assets.BLACK_KING, 3, 0);
+		board[3][7] = new King(handler, true, Assets.WHITE_KING, 3, 7);
+		board[4][0] = new Queen(handler, false, Assets.BLACK_QUEEN, 4, 0);
+		board[4][7] = new Queen(handler, true, Assets.WHITE_QUEEN, 4, 7);
+		
 	}
 
 	@Override

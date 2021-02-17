@@ -36,16 +36,16 @@ public abstract class Piece {
 		int xPos = (int) ((x + xOffset)/handler.getSquareWidth());
 		int yPos = (int) ((y + yOffset)/handler.getSquareHeight());
 		
-		System.out.println(xPos + ", " + yPos);
-		
 		if (x + xOffset >= 0 && x + xOffset < handler.getWidth() && y + yOffset >= 0 && y + yOffset < handler.getHeight()) {
-			if (checkPath(board[xPos][yPos] != null)) {
-//				PIECE MOVED
-				board[(int) (x/handler.getSquareWidth())][(int) (y/handler.getSquareHeight())] = null; // Removes old location
-				board[xPos][yPos] = this;
-				moves++;
-				x += xOffset;
-				y += yOffset;
+			if (xOffset != 0.0 || yOffset != 0.0) {
+				if (checkPath(board[xPos][yPos] != null)) {
+//					PIECE MOVED
+					board[(int) (x/handler.getSquareWidth())][(int) (y/handler.getSquareHeight())] = null; // Removes old location
+					board[xPos][yPos] = this;
+					moves++;
+					x += xOffset;
+					y += yOffset;
+				}
 			}
 		}
 		reset();

@@ -15,7 +15,7 @@ public class ChessColor {
 			black = !black;
 		}
 		if (black) {
-			return Color.BLACK;
+			return Color.TAN.darker();
 		} else {
 			return Color.WHEAT;
 		}
