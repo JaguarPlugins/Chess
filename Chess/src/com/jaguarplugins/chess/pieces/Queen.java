@@ -11,7 +11,7 @@ public class Queen extends Piece {
 	}
 
 	@Override
-	protected boolean checkPath(boolean taking) {
+	protected boolean checkPath(Piece vicitm) {
 		double xR = Math.abs(xOffset); // X offset relative to the player
 		double yR = Math.abs(yOffset);
 		

@@ -11,7 +11,7 @@ public class Pawn extends Piece {
 	}
 
 	@Override
-	protected boolean checkPath(boolean taking) {
+	protected boolean checkPath(Piece victim) {
 		
 		double xR = xOffset; // X offset relative to the player
 		double yR = yOffset;
@@ -19,7 +19,7 @@ public class Pawn extends Piece {
 			yR = -yOffset;
 		}
 		
-		if (taking) {
+		if (victim != null) {
 			if (yR == handler.getSquareHeight() && Math.abs(xR) == handler.getSquareWidth()) {
 				return true;
 			}

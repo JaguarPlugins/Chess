@@ -38,13 +38,15 @@ public abstract class Piece {
 		
 		if (x + xOffset >= 0 && x + xOffset < handler.getWidth() && y + yOffset >= 0 && y + yOffset < handler.getHeight()) {
 			if (xOffset != 0.0 || yOffset != 0.0) {
-				if (checkPath(board[xPos][yPos] != null)) {
-//					PIECE MOVED
-					board[(int) (x/handler.getSquareWidth())][(int) (y/handler.getSquareHeight())] = null; // Removes old location
-					board[xPos][yPos] = this;
-					moves++;
-					x += xOffset;
-					y += yOffset;
+				if (board[xPos][yPos] == null || board[xPos][yPos].isWhite() != white) {
+					if (checkPath(board[xPos][yPos])) {
+	//					PIECE MOVED
+						board[(int) (x/handler.getSquareWidth())][(int) (y/handler.getSquareHeight())] = null; // Removes old location
+						board[xPos][yPos] = this;
+						moves++;
+						x += xOffset;
+						y += yOffset;
+					}
 				}
 			}
 		}
@@ -59,7 +61,7 @@ public abstract class Piece {
 	}
 
 //	ABSTRACT METHODS
-	protected abstract boolean checkPath(boolean taking);
+	protected abstract boolean checkPath(Piece victim);
 
 //	GETTERS AND SETTERS
 	public Rectangle getR() {
@@ -72,6 +74,10 @@ public abstract class Piece {
 
 	public void setYOffset(double yOffset) {
 		this.yOffset = yOffset;
+	}
+
+	public boolean isWhite() {
+		return white;
 	}
 
 }
