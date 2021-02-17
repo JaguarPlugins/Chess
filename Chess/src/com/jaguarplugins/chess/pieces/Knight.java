@@ -16,10 +16,12 @@ public class Knight extends Piece {
 		double xR = Math.abs(xOffset); // X offset relative to the player
 		double yR = Math.abs(yOffset);
 		
-		if (xR == 2*handler.getSquareWidth() && yR == 3*handler.getSquareHeight()) {
+		System.out.println(xR + ", " + yR);
+		
+		if (xR == 1*handler.getSquareWidth() && yR == 2*handler.getSquareHeight()) {
 			return true;
 		}
-		if (xR == 3*handler.getSquareWidth() && yR == 2*handler.getSquareHeight()) {
+		if (xR == 2*handler.getSquareWidth() && yR == 1*handler.getSquareHeight()) {
 			return true;
 		}
 		return false;
