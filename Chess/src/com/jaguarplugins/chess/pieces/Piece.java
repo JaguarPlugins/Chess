@@ -28,7 +28,7 @@ public abstract class Piece {
 		g.drawImage(image, x + xOffset, y + yOffset, handler.getSquareWidth(), handler.getSquareHeight());
 	}
 	
-	public void snap(Piece[][] board) {
+	public boolean snap(Piece[][] board) {
 
 		xOffset = (Math.round(xOffset/(handler.getWidth()/8)))*(handler.getWidth()/8);
 		yOffset = (Math.round(yOffset/(handler.getHeight()/8)))*(handler.getHeight()/8);
@@ -46,11 +46,14 @@ public abstract class Piece {
 						moves++;
 						x += xOffset;
 						y += yOffset;
+						reset();
+						return true;
 					}
 				}
 			}
 		}
 		reset();
+		return false;
 
 	}
 	

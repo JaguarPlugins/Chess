@@ -19,6 +19,7 @@ public class MainState extends State {
 	private Piece[][] board = new Piece[8][8];;
 	private Piece heldPiece;
 	private double baseX, baseY;
+	private boolean currentTeam = true;
 	
 	public MainState(Handler handler) {
 		
@@ -40,10 +41,10 @@ public class MainState extends State {
 			board[i][0] = new Knight(handler, false, Assets.BLACK_KNIGHT, i, 0);
 			board[i][7] = new Knight(handler, true, Assets.WHITE_KNIGHT, i, 7);
 		}
-		board[3][0] = new King(handler, false, Assets.BLACK_KING, 3, 0);
-		board[3][7] = new King(handler, true, Assets.WHITE_KING, 3, 7);
-		board[4][0] = new Queen(handler, false, Assets.BLACK_QUEEN, 4, 0);
-		board[4][7] = new Queen(handler, true, Assets.WHITE_QUEEN, 4, 7);
+		board[4][0] = new King(handler, false, Assets.BLACK_KING, 4, 0);
+		board[4][7] = new King(handler, true, Assets.WHITE_KING, 4, 7);
+		board[3][0] = new Queen(handler, false, Assets.BLACK_QUEEN, 3, 0);
+		board[3][7] = new Queen(handler, true, Assets.WHITE_QUEEN, 3, 7);
 		
 	}
 
@@ -91,13 +92,15 @@ public class MainState extends State {
 			} else if (e.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
 				
 				if (heldPiece != null) {
-					heldPiece.snap(board);
+					if (heldPiece.snap(board)) {
+						currentTeam = !currentTeam;
+					}
 					heldPiece = null;
 				}
 				
 			} else if (e.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
 
-				for (Piece[] column : board) { for (Piece p : column) { if (p != null) {
+				for (Piece[] column : board) { for (Piece p : column) { if (p != null && p.isWhite() == currentTeam) {
 					if (p.getR().intersects(e.getSceneX(), e.getSceneY(), 1, 1)) {
 						heldPiece = p;
 						baseX = e.getSceneX();
@@ -109,6 +112,14 @@ public class MainState extends State {
 			
 		}
 		
+	}
+
+	public boolean isCurrentTeam() {
+		return currentTeam;
+	}
+
+	public void setCurrentTeam(boolean currentTeam) {
+		this.currentTeam = currentTeam;
 	}
 
 }
