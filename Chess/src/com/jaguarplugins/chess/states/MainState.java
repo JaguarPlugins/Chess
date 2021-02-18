@@ -12,6 +12,7 @@ import com.jaguarplugins.chess.style.ChessColor;
 import com.jaguarplugins.chess.util.Handler;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 
 public class MainState extends State {
@@ -85,32 +86,36 @@ public class MainState extends State {
 		
 		if (State.getCurrentState() instanceof MainState) {
 			
-			if (e.getEventType().equals(MouseEvent.MOUSE_DRAGGED)) {
-				
-				if (heldPiece != null) {
-					heldPiece.setXOffset(e.getSceneX() - baseX);
-					heldPiece.setYOffset(e.getSceneY() - baseY);
-				}
-				
-			} else if (e.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
-				
-				if (heldPiece != null) {
-					if (heldPiece.snap(board)) {
-						currentTeam = !currentTeam;
+			if (e.getButton().equals(MouseButton.PRIMARY)) {
+			
+				if (e.getEventType().equals(MouseEvent.MOUSE_DRAGGED)) {
+					
+					if (heldPiece != null) {
+						heldPiece.setXOffset(e.getSceneX() - baseX);
+						heldPiece.setYOffset(e.getSceneY() - baseY);
 					}
-					heldPiece = null;
-				}
-				
-			} else if (e.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
-
-				for (Piece[] column : board) { for (Piece p : column) { if (p != null && p.isWhite() == currentTeam) {
-					if (p.getR().intersects(e.getSceneX(), e.getSceneY(), 1, 1)) {
-						heldPiece = p;
-						baseX = e.getSceneX();
-						baseY = e.getSceneY();
+					
+				} else if (e.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
+					
+					if (heldPiece != null) {
+						if (heldPiece.snap(board)) {
+							currentTeam = !currentTeam;
+						}
+						heldPiece = null;
 					}
-				}}}
-
+					
+				} else if (e.getEventType().equals(MouseEvent.MOUSE_PRESSED)) {
+	
+					for (Piece[] column : board) { for (Piece p : column) { if (p != null && p.isWhite() == currentTeam) {
+						if (p.getR().intersects(e.getSceneX(), e.getSceneY(), 1, 1)) {
+							heldPiece = p;
+							baseX = e.getSceneX();
+							baseY = e.getSceneY();
+						}
+					}}}
+	
+				}
+			
 			}
 			
 		}
