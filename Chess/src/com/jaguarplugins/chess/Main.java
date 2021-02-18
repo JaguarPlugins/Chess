@@ -30,7 +30,7 @@ public class Main extends Application {
 
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Chess Offline");
-		primaryStage.getIcons().add(Assets.PAWN);
+		primaryStage.getIcons().addAll(Assets.WHITE_KNIGHT);
 		primaryStage.setWidth(800);
 		primaryStage.setHeight(800);
 		primaryStage.setResizable(false);

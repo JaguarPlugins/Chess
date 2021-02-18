@@ -67,10 +67,13 @@ public class MainState extends State {
 //		PIECES
 		for (Piece[] column : board) {
 			for (Piece p : column) {
-				if (p != null) {
+				if (p != null && !p.equals(heldPiece)) {
 					p.render(g);
 				}
 			}
+		}
+		if (heldPiece != null) {
+			heldPiece.render(g);
 		}
 		
 	}
