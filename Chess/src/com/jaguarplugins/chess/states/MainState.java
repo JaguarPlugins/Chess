@@ -11,9 +11,13 @@ import com.jaguarplugins.chess.style.Assets;
 import com.jaguarplugins.chess.style.ChessColor;
 import com.jaguarplugins.chess.util.Handler;
 
+import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 public class MainState extends State {
 
@@ -63,6 +67,18 @@ public class MainState extends State {
 				g.setFill(ChessColor.getSquareColor(x, y));
 				g.fillRect(x*handler.getWidth()/8, y*handler.getHeight()/8, handler.getWidth()/8, handler.getHeight()/8);
 			}
+		}
+		
+//		COORDINATES
+		g.setFill(Color.BLACK);
+		g.setFont(new Font("calibri", 25));
+		g.setTextAlign(TextAlignment.LEFT);
+		g.setTextBaseline(VPos.TOP);
+		for (int x = 0; x < 8; x++) {
+			g.fillText(x + "", (x)*handler.getSquareWidth() + 2, 0);
+		}
+		for (int y = 1; y < 8; y++) {
+			g.fillText(y + "", 2, y*handler.getSquareHeight());
 		}
 		
 //		PIECES

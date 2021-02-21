@@ -16,8 +16,6 @@ public class Knight extends Piece {
 		double xR = Math.abs(xOffset); // X offset relative to the player
 		double yR = Math.abs(yOffset);
 		
-		System.out.println(xR + ", " + yR);
-		
 		if (xR == 1*handler.getSquareWidth() && yR == 2*handler.getSquareHeight()) {
 			return true;
 		}
@@ -26,6 +24,16 @@ public class Knight extends Piece {
 		}
 		return false;
 		
+	}
+
+	@Override
+	protected boolean checkCollisions(Piece[][] board, int xPos, int yPos, int newX, int newY) {
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Knight";
 	}
 
 }

@@ -1,5 +1,7 @@
 package com.jaguarplugins.chess.pieces;
 
+import java.util.ArrayList;
+
 import com.jaguarplugins.chess.util.Handler;
 
 import javafx.scene.image.Image;
@@ -21,6 +23,27 @@ public class Rook extends Piece {
 		}
 		return false;
 		
+	}
+
+	@Override
+	protected boolean checkCollisions(Piece[][] board, int xPos, int yPos, int newX, int newY) {
+		ArrayList<Integer> xs = Piece.coordsAsArray(xPos, newX);
+		ArrayList<Integer> ys = Piece.coordsAsArray(yPos, newY);
+		for (int a = xs.get(0); a <= xs.get(1); a++) {
+			for (int b = ys.get(0); b <= ys.get(1); b++) {
+				if (board[a][b] != null && !board[a][b].equals(this)) {
+					if (a != newX || b != newY) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Rook";
 	}
 
 }

@@ -23,4 +23,26 @@ public class Bishop extends Piece {
 		
 	}
 
+	@Override
+	protected boolean checkCollisions(Piece[][] board, int xPos, int yPos, int newX, int newY) {
+		int dx = (newX-xPos)/Math.abs(newX-xPos);
+		int dy = (newY-yPos)/Math.abs(newY-yPos);
+		while (true) {
+			if (board[xPos][yPos] != null && !board[xPos][yPos].equals(this)) {
+				if (xPos != newX || yPos != newY) {
+					return false;
+				}
+			}
+			xPos += dx; yPos += dy;
+			if (xPos == newX) {
+				return true;
+			}
+		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Bishop";
+	}
+
 }

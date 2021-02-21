@@ -1,5 +1,7 @@
 package com.jaguarplugins.chess.pieces;
 
+import java.util.ArrayList;
+
 import com.jaguarplugins.chess.util.Handler;
 
 import javafx.scene.image.Image;
@@ -39,6 +41,26 @@ public class Pawn extends Piece {
 
 		return false;
 		
+	}
+
+	@Override
+	protected boolean checkCollisions(Piece[][] board, int xPos, int yPos, int newX, int newY) {
+		if (moves < 1) {
+			ArrayList<Integer> ys = Piece.coordsAsArray(yPos, newY);
+			for (int b = ys.get(0); b <= ys.get(1); b++) {
+				if (board[xPos][b] != null && !board[xPos][b].equals(this)) {
+					if (xPos != newX || b != newY) {
+						return false;
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "Pawn";
 	}
 
 }

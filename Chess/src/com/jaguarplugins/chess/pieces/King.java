@@ -23,4 +23,14 @@ public class King extends Piece {
 		
 	}
 
+	@Override
+	protected boolean checkCollisions(Piece[][] board, int xPos, int yPos, int newX, int newY) {
+		return true;
+	}
+
+	@Override
+	public String toString() {
+		return "King";
+	}
+
 }
