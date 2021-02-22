@@ -1,5 +1,6 @@
 package com.jaguarplugins.chess.states;
 
+import com.jaguarplugins.chess.board.Square;
 import com.jaguarplugins.chess.pieces.Bishop;
 import com.jaguarplugins.chess.pieces.King;
 import com.jaguarplugins.chess.pieces.Knight;
@@ -8,7 +9,6 @@ import com.jaguarplugins.chess.pieces.Piece;
 import com.jaguarplugins.chess.pieces.Queen;
 import com.jaguarplugins.chess.pieces.Rook;
 import com.jaguarplugins.chess.style.Assets;
-import com.jaguarplugins.chess.style.ChessColor;
 import com.jaguarplugins.chess.util.Handler;
 
 import javafx.geometry.VPos;
@@ -21,7 +21,8 @@ import javafx.scene.text.TextAlignment;
 
 public class MainState extends State {
 
-	private Piece[][] board = new Piece[8][8];;
+	private Piece[][] board = new Piece[8][8];
+	private Square[][] squares = new Square[8][8];
 	private Piece heldPiece;
 	private double baseX, baseY;
 	private boolean currentTeam = true;
@@ -30,6 +31,7 @@ public class MainState extends State {
 		
 		super(handler);
 		
+//		Piece Setup
 		for (int i = 0; i <= 7; i++) {
 			board[i][1] = new Pawn(handler, false, Assets.BLACK_PAWN, i, 1);
 			board[i][6] = new Pawn(handler, true, Assets.WHITE_PAWN, i, 6);
@@ -51,6 +53,13 @@ public class MainState extends State {
 		board[3][0] = new Queen(handler, false, Assets.BLACK_QUEEN, 3, 0);
 		board[3][7] = new Queen(handler, true, Assets.WHITE_QUEEN, 3, 7);
 		
+//		Board Setup
+		for (int x = 0; x < 8; x++) {
+			for (int y = 0; y < 8; y++) {
+				squares[x][y] = new Square(handler, x, y);
+			}
+		}
+		
 	}
 
 	@Override
@@ -62,10 +71,9 @@ public class MainState extends State {
 	public void render(GraphicsContext g) {
 
 //		BOARD
-		for (int x = 0; x < 8; x++) {
-			for (int y = 0; y < 8; y++) {
-				g.setFill(ChessColor.getSquareColor(x, y));
-				g.fillRect(x*handler.getWidth()/8, y*handler.getHeight()/8, handler.getWidth()/8, handler.getHeight()/8);
+		for (Square[] column : squares) {
+			for (Square s : column) {
+				s.render(g);
 			}
 		}
 		
