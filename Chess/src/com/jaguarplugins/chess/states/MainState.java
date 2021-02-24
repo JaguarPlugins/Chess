@@ -121,6 +121,7 @@ public class MainState extends State {
 					
 				} else if (e.getEventType().equals(MouseEvent.MOUSE_RELEASED)) {
 					
+					resetPossible();
 					if (heldPiece != null) {
 						if (heldPiece.snap(board)) {
 							currentTeam = !currentTeam;
@@ -137,7 +138,12 @@ public class MainState extends State {
 							baseY = e.getSceneY();
 						}
 					}}}
-	
+					
+					if (heldPiece != null) {
+						heldPiece.showPossible(board, squares, (int) (heldPiece.getX()/handler.getSquareWidth()), 
+								(int) (heldPiece.getY()/handler.getSquareHeight()));
+					}
+					
 				}
 			
 			}
@@ -146,6 +152,14 @@ public class MainState extends State {
 		
 	}
 
+	private void resetPossible() {
+		for (Square[] column : squares) {
+			for (Square s : column) {
+				s.setPossible(false);
+			}
+		} 
+	}
+	
 	public boolean isCurrentTeam() {
 		return currentTeam;
 	}

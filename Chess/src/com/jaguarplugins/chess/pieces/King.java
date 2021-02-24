@@ -1,5 +1,6 @@
 package com.jaguarplugins.chess.pieces;
 
+import com.jaguarplugins.chess.board.Square;
 import com.jaguarplugins.chess.util.Handler;
 
 import javafx.scene.image.Image;
@@ -31,6 +32,12 @@ public class King extends Piece {
 	@Override
 	public String toString() {
 		return "King";
+	}
+
+	@Override
+	public void showPossible(Piece[][] board, Square[][] squares, int xPos, int yPos) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

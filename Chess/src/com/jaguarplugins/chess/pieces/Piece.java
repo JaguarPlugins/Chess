@@ -3,6 +3,7 @@ package com.jaguarplugins.chess.pieces;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.jaguarplugins.chess.board.Square;
 import com.jaguarplugins.chess.util.Handler;
 
 import javafx.scene.canvas.GraphicsContext;
@@ -45,6 +46,18 @@ public abstract class Piece {
 					if (checkPath(board[xPos][yPos])) {
 						if (checkCollisions(board, (int) (x/handler.getSquareWidth()), (int) (y/handler.getSquareHeight()), xPos, yPos)) {
 //							PIECE MOVED
+							if (board[xPos][yPos] != null) {
+								board[xPos][yPos].onTake(board, this);
+							}
+							
+							for (Piece[] column : board) {
+								for (Piece p : column) {
+									if (p != null) {
+										p.onMove(board);
+									}
+								}
+							}
+							
 							board[(int) (x/handler.getSquareWidth())][(int) (y/handler.getSquareHeight())] = null; // Removes old location
 							board[xPos][yPos] = this; // Sets new location
 							moves++;
@@ -82,7 +95,10 @@ public abstract class Piece {
 //	ABSTRACT METHODS
 	protected abstract boolean checkPath(Piece victim);
 	protected abstract boolean checkCollisions(Piece[][] board, int xPos, int yPos, int newX, int newY);
+	public abstract void showPossible(Piece[][] board, Square[][] squares, int xPos, int yPos);
 	public abstract String toString();
+	protected void onMove(Piece[][] board) {}
+	protected void onTake(Piece[][] board, Piece attacker) {}
 	
 //	GETTERS AND SETTERS
 	public Rectangle getR() {
@@ -99,6 +115,14 @@ public abstract class Piece {
 
 	public boolean isWhite() {
 		return white;
+	}
+
+	public double getX() {
+		return x;
+	}
+
+	public double getY() {
+		return y;
 	}
 
 }

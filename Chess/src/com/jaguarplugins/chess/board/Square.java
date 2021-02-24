@@ -12,6 +12,7 @@ public class Square {
 	private Color color;
 	private double x, y;
 	private boolean possible = false;
+	private static double BORDER = 0.2;
 	
 	public Square(Handler handler, int x, int y) {
 		this.handler = handler;
@@ -22,10 +23,21 @@ public class Square {
 	
 	public void render(GraphicsContext g) {
 		g.setFill(color);
-		if (possible) {
-			g.setFill(color.darker());			
-		}
 		g.fillRect(x, y, handler.getSquareWidth(), handler.getSquareHeight());
+		if (possible) {
+			g.setFill(color.darker().darker());
+			g.fillOval(x + handler.getSquareWidth()*BORDER, y + handler.getSquareHeight()*BORDER, 
+					handler.getSquareWidth() - 2*handler.getSquareWidth()*BORDER, handler.getSquareHeight() - 2*handler.getSquareHeight()*BORDER);			
+		}
+	}
+
+//	GETTERS AND SETTERS
+	public boolean isPossible() {
+		return possible;
+	}
+
+	public void setPossible(boolean possible) {
+		this.possible = possible;
 	}	
 	
 }
